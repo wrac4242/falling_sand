@@ -1,4 +1,6 @@
 # falling_sand
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/wrac4242/falling_sand.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wrac4242/falling_sand/alerts/)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/wrac4242/falling_sand.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wrac4242/falling_sand/context:cpp)
 a program i am writing to learn more about C, inspired by Noita  
 
 uses SDL2
