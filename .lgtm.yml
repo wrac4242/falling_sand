@@ -10,4 +10,4 @@ extraction:
         - ./configure --with-modules="" --without-lua
      index:
         build_command:
-        - cd source && make -f makefile
+        - cd source && make

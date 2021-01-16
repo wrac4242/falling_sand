@@ -10,6 +10,9 @@
 # Unignore makefile
 !makefile
 
+#Unignore all from git
+!.git/**
+
 # Prerequisites
 *.d
 
