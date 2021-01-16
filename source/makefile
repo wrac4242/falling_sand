@@ -1,8 +1,16 @@
+.PHONY: all clean
+
 SDL_CFLAGS := $(shell sdl2-config --cflags)
-SDL_LDFLAGS := $(shell sdl2-config --libs)
+SDL_LDLIBS := $(shell sdl2-config --libs)
 
-CC=gcc
-CFLAGS=-O2 -Wall
+CFLAGS = $(SDL_CFLAGS)
+LDLIBS = -O2 -Wall $(SDL_LDLIBS)
 
-main:
-	${CC} -o falling_sand.out ./main.c ${CFLAGS} ${SDL_LDFLAGS} ${SDL_CFLAGS}
+GAME = falling_sand
+
+all: $(GAME)
+
+$(GAME): falling_sand.o
+
+clean:
+	$(RM) *.o $(GAME)

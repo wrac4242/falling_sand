@@ -31,7 +31,7 @@ game stuff:
 * * *
 
 general stuff:  
-- [ ] add make file  
+- [x] add make file  
 - [ ] get lgtm working  
 - [ ] structure program properly  
 - [ ] work out how to split code into files  
