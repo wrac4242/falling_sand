@@ -2,12 +2,9 @@ extraction:
   cpp:
      prepare:
         packages:
-          - libboost-all-dev
-          - bison
+          SDL2
      configure:
         command:
-        - ./bootstrap
-        - ./configure --with-modules="" --without-lua
      index:
         build_command:
         - cd source && make
