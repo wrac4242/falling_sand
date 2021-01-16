@@ -1,18 +1,10 @@
 
 game stuff:  
   work out what rendering engine to used:  
-  must have:  
-- [ ] pixel control  
-- [ ] user interaction, see where and when they click  
-- [ ] easy use, can shove most of it into functions  
-- [ ] be able to fix framerate?  
-- [ ] post processing possible? might need to add myself  
-- [ ] able to add text in  
-- [ ] layers to render?  
-- [ ] small footprint?  
+  sql2 now
 * * *
-- [ ] basic screen rendering  
-- [ ] window_width and window_height for screen size  
+- [x] basic screen rendering  
+- [x] window_width and window_height for screen size  
 
 - [ ] then make it display an array, with a boarder of a set width  
 
@@ -32,8 +24,8 @@ game stuff:
 
 general stuff:  
 - [x] add make file  
-- [ ] get lgtm working  
-- [ ] structure program properly  
+- [x] get lgtm working  
+- [x] structure program properly  
 - [ ] work out how to split code into files  
 * * *
 particles to create:  
