@@ -1,0 +1,13 @@
+make struct of a particle
+create sand particle
+
+make the array of that struct
+render that array
+implement physics for sand
+add more particle types
+
+particles to create:
+  sand
+  water
+  stone
+  wood
