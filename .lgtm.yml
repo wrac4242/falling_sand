@@ -2,7 +2,6 @@ extraction:
   cpp:
      prepare:
         packages:
-          - sdl2
      configure:
         command:
      index:
