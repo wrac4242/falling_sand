@@ -1,10 +1,29 @@
-make struct of a particle
-create sand particle
 
-make the array of that struct
-render that array
-implement physics for sand
-add more particle types
+game stuff:
+  work out what rendering engine to used:
+  must have:
+    pixel control
+    user interaction, see where and when they click
+    easy use, can shove most of it into functions
+    be able to fix framerate?
+
+
+  basic screen rendering
+  window_width and window_height for screen size
+
+  make struct of a particle
+  create sand particle
+
+  make the array of that struct
+  render that array
+  implement physics for sand
+  add more particle types
+
+general stuff:
+  add make file
+  get lgtm working
+  structure program properly
+  work out how to split code into files
 
 particles to create:
   sand
