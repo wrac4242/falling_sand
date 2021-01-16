@@ -2,8 +2,8 @@
 #include <SDL.h> //sdl2 library
 
 //function prototypes
-int initialise_game(SDL_Window *window); //initialises the game screen, returns 0 if successful
-int exit_game(SDL_Window *window); //exits the game, returns 0 if successful
+int initialise_game(); //initialises the game screen, returns 0 if successful
+int exit_game(long window_addr); //exits the game, returns 0 if successful
 
 
 //screen settings, can be changed later
@@ -13,16 +13,11 @@ const int SCREEN_HEIGHT = 110;
 int main(int argc, char* args[])
 {
   SDL_Window *window;                    // Declare a pointer
-
-  int error_code_init = initialise_game(window);
-  if (error_code_init!=0){
-    printf("Error in game initialisation: code %s\n", error_code_init);
-    return 1;
-  }
+  window = (void*) (long) initialise_game();
 
   SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
 
-  int error_code_exit = exit_game(window);
+  int error_code_exit = exit_game((long) &window);
   if (error_code_exit!=0){
     printf("Error in game exit\n");
     return 1;
@@ -31,9 +26,10 @@ int main(int argc, char* args[])
   return 0;
 }
 
-int initialise_game(SDL_Window *window) //initialises the game screen, returns 0 if successful
+int initialise_game() //initialises the game screen, returns 0 if successful
 {
   SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
+  SDL_Window *window;
 
   // Create an application window with the following settings:
   window = SDL_CreateWindow(
@@ -53,12 +49,14 @@ int initialise_game(SDL_Window *window) //initialises the game screen, returns 0
   }
 }
 
-int exit_game(SDL_Window *window) //exits the game, returns 0 if successful
+int exit_game(long window_addr) //exits the game, returns 0 if successful
 {
+  SDL_Window *window;
+  window = (void*) (long) window_addr;
+
   // Close and destroy the window
   SDL_DestroyWindow(window);
 
-  // Clean up
   SDL_Quit();
   return 0;
 }
