@@ -60,9 +60,6 @@ int main(int argc, char* args[])
     if(event.type == SDL_QUIT){
       playing = false;
       printf("exiting via quit event\n");
-
-      //printf("Number of rows: %d\n", ((int) (sizeof (particle_array) / sizeof (particle_array)[0])));
-      //printf("Number of columns: %d\n", ((int) (sizeof (particle_array[0]) / sizeof (particle_array[0])[0])));
     }
   }
   while (playing==1);
