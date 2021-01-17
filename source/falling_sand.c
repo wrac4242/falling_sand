@@ -1,5 +1,6 @@
 #include <stdio.h> //input and output for debugging
 #include <SDL.h> //sdl2 library
+#include <linux/types.h> //types
 
 //function prototypes
 int initialise_window(); //initialises the game screen, returns 0 if successful
@@ -11,25 +12,25 @@ typedef enum {false, true} bool;
 //colour struct, 32 bits, standard pixel data
 typedef struct colour_t
 {
-  u8 r;
-  u8 g;
-  u8 b;
-  u8 a;
+  __u8 r;
+  __u8 g;
+  __u8 b;
+  __u8 a;
 } colour_t;
 
 typedef struct particle_t
 {
-  u32 id; //4 bytes, material id
-  f32 life_time; //4 bytes, only used for limited life particles
+  __u32 id; //4 bytes, material id
+  __u32 life_time; //4 bytes, only used for limited life particles
   colour_t colour; //4 bytes
-  u32 lastUpdatedFrame; //4 bytes
+  __u32 lastUpdatedFrame; //4 bytes
 } particle_t; //16 bytes
 
 
 //screen settings, can be changed later
 const int SCREEN_WIDTH = 110;
 const int SCREEN_HEIGHT = 110;
-u32 frameNumber = 0; //frame number
+__u32 frameNumber = 0; //frame number
 
 int main(int argc, char* args[])
 {
