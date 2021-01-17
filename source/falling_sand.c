@@ -94,6 +94,7 @@ int initialise_window() //initialises the game screen, returns 0 if successful
     printf("Could not create window: %s\n", SDL_GetError());
     return 1;
   }
+  return NULL;
 }
 
 int exit_game(long window_addr, int* array) //exits the game, returns 0 if successful
