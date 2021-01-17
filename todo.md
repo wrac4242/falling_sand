@@ -14,7 +14,8 @@ game stuff:
 
 - [x] add game quitting
 
-- [ ] make the array of particles, get material id, and use that to render
+- [x] make the array of particles,
+- [ ] get material id, and use that to render
 
 - [ ] implement physics for sand  
 - [ ] add more particle types  
