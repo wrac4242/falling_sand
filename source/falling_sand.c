@@ -17,10 +17,16 @@ typedef struct colour_t
   u8 a;
 } colour_t;
 
+typedef struct particle
+{
+
+}
+
 
 //screen settings, can be changed later
 const int SCREEN_WIDTH = 110;
 const int SCREEN_HEIGHT = 110;
+u32 frameNumber = 0; //frame number
 
 int main(int argc, char* args[])
 {
@@ -34,6 +40,7 @@ int main(int argc, char* args[])
 
   do {
     //main game steps:
+    frameNumber += 1; //increase frameNumber
     //update physics
     //update render
     //check for human input
