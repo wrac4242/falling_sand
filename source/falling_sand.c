@@ -17,10 +17,13 @@ typedef struct colour_t
   u8 a;
 } colour_t;
 
-typedef struct particle
+typedef struct particle_t
 {
-
-}
+  u32 id; //4 bytes, material id
+  f32 life_time; //4 bytes, only used for limited life particles
+  colour_t colour; //4 bytes
+  u32 lastUpdatedFrame; //4 bytes
+} particle_t; //16 bytes
 
 
 //screen settings, can be changed later
