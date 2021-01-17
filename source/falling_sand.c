@@ -51,9 +51,10 @@ int main(int argc, char* args[])
     //check for human input
     //wait rest of frame
     SDL_PollEvent(&event);
-    if(event.type == SDL_QUIT)
+    if(event.type == SDL_QUIT){
       playing = false;
       printf("exiting via quit event\n");
+    }
   }
   while (playing==1);
 
