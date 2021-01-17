@@ -8,6 +8,7 @@ game stuff:
 
 - [ ] then make it display an array, with a boarder of a set width  
 
+- [x] make struct of colour  
 - [ ] make struct of a particle  
 - [ ] create sand particle  
 

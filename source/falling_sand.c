@@ -2,8 +2,20 @@
 #include <SDL.h> //sdl2 library
 
 //function prototypes
-int initialise_game(); //initialises the game screen, returns 0 if successful
+int initialise_window(); //initialises the game screen, returns 0 if successful
 int exit_game(long window_addr); //exits the game, returns 0 if successful
+
+//structs & enums
+typedef enum {false, true} bool;
+
+//colour struct, 32 bits, standard pixel data
+typedef struct colour_t
+{
+  u8 r;
+  u8 g;
+  u8 b;
+  u8 a;
+} colour_t;
 
 
 //screen settings, can be changed later
@@ -13,9 +25,22 @@ const int SCREEN_HEIGHT = 110;
 int main(int argc, char* args[])
 {
   SDL_Window *window;                    // Declare a pointer
-  window = (void*) (long) initialise_game();
+  window = (void*) (long) initialise_window();
 
-  SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
+  //initial creation of assets needed
+  //create the array of particles
+
+  bool playing = true; //creates the playing variable
+
+  do {
+    //main game steps:
+    //update physics
+    //update render
+    //check for human input
+    //wait rest of frame
+    //check if should quit
+  }
+  while (playing==1);
 
   int error_code_exit = exit_game((long) &window);
   if (error_code_exit!=0){
@@ -26,7 +51,7 @@ int main(int argc, char* args[])
   return 0;
 }
 
-int initialise_game() //initialises the game screen, returns 0 if successful
+int initialise_window() //initialises the game screen, returns 0 if successful
 {
   SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
   SDL_Window *window;
