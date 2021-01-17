@@ -36,6 +36,7 @@ int main(int argc, char* args[])
 {
   SDL_Window *window;                    // Declare a pointer
   window = (void*) (long) initialise_window();
+  SDL_Event event;
 
   //initial creation of assets needed
   //create the array of particles
@@ -49,7 +50,9 @@ int main(int argc, char* args[])
     //update render
     //check for human input
     //wait rest of frame
-    //check if should quit
+    SDL_PollEvent(&event);
+    if(event.type == SDL_QUIT)
+      playing = false;
   }
   while (playing==1);
 

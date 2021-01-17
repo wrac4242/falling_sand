@@ -12,7 +12,7 @@ game stuff:
 - [x] make struct of a particle  
 - [ ] create sand particle  
 
-- [ ] add game quitting
+- [x] add game quitting
 
 - [ ] make the array of particles, get material id, and use that to render
 
