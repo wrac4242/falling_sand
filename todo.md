@@ -10,7 +10,8 @@ game stuff:
 
 - [x] make struct of colour  
 - [x] make struct of a particle  
-- [ ] create sand particle  
+- [ ] create sand particle
+- [ ] create array starting layout function 
 
 - [x] add game quitting
 

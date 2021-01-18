@@ -36,6 +36,11 @@ typedef struct particle_t{
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 128;
 __u32 frameNumber = 0; //frame number
+const int display_boarder = 10;// pixels around perimiter left blank
+
+const int array_size_x = SCREEN_WIDTH - 2 * display_boarder;
+const int array_size_y = SCREEN_HEIGHT - 2 * display_boarder;
+
 
 int main(int argc, char* args[])
 {
@@ -45,7 +50,7 @@ int main(int argc, char* args[])
 
   //initial creation of assets needed
   //create the array of particles
-  int* particle_array = createArray(123,321); //pointer to the array in memory
+  int* particle_array = createArray(array_size_x, array_size_y); //pointer to the array in memory
 
   bool playing = true; //creates the playing variable
 
