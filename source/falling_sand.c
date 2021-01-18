@@ -4,10 +4,9 @@
 
 //function prototypes
 int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
-int exit_game(long window_addr, int* array); //exits the game, returns 0 if successful
+int exit_game(long window_addr, long array_addr); //exits the game, returns 0 if successful
 
-int * create_array(int array_x, int array_y); //creates array of given size of particles, returns array pointer
-void array_starting_pattern(int* array); //starting setup of array
+void array_starting_pattern(long array_addr); //starting setup of array
 
 //structs & enums
 typedef enum {false, true} bool;
@@ -41,8 +40,8 @@ const int SCREEN_HEIGHT = 128;
 __u32 frameNumber = 0; //frame number
 const int display_boarder = 10;// pixels around perimiter left blank
 
-const int array_size_x = SCREEN_WIDTH - 2 * display_boarder;
-const int array_size_y = SCREEN_HEIGHT - 2 * display_boarder;
+const int array_x = SCREEN_WIDTH - 2 * display_boarder;
+const int array_y = SCREEN_HEIGHT - 2 * display_boarder;
 
 
 int main(int argc, char* args[])
@@ -53,9 +52,16 @@ int main(int argc, char* args[])
 
   //initial creation of assets needed
   //create the array of particles
-  int* particle_array = create_array(array_size_x, array_size_y); //pointer to the array in memory
+  struct particle_t (*particle_array)[array_x] = (int (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
 
-  array_starting_pattern(particle_array);
+  for (int i = 0; i < array_x; i++) {
+    for (int j = 0; j < array_y; j++) {
+      struct particle_t p; p.id=mat_id_empty, p.life_time=0, p.colour=mat_col_empty, p.lastUpdatedFrame=666; //random number chosen for last updated frame no difference
+      particle_array[i][j] = p;
+    }
+  }
+
+  array_starting_pattern((long)&particle_array);
 
   bool playing = true; //creates the playing variable
 
@@ -74,7 +80,7 @@ int main(int argc, char* args[])
   }
   while (playing==1);
 
-  int error_code_exit = exit_game((long) &window, particle_array);
+  int error_code_exit = exit_game((long) &window, (long) &particle_array);
   if (error_code_exit!=0){
     printf("Error in game exit\n");
     return 1;
@@ -108,10 +114,13 @@ int initialise_window(long window_addr) //initialises the game screen, returns 0
   return 0;
 }
 
-int exit_game(long window_addr, int* array) //exits the game, returns 0 if successful
+int exit_game(long window_addr, long array_addr) //exits the game, returns 0 if successful
 {
   SDL_Window *window;
   window = (void*) (long) window_addr;
+
+  int* array;
+  array = (void*) (long) array_addr;
 
   // Close and destroy the window
   SDL_DestroyWindow(window);
@@ -123,21 +132,10 @@ int exit_game(long window_addr, int* array) //exits the game, returns 0 if succe
   return 0;
 }
 
-int * create_array(int array_x, int array_y)
+void array_starting_pattern(long array_addr)
 {
-  particle_t (*array)[array_x] = (int (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
+  int* array;
+  array = (void*) (long) array_addr;
 
-  for (int i = 0; i < array_x; i++) {
-    for (int j = 0; j < array_y; j++) {
-      struct particle_t p; p.id=mat_id_empty, p.life_time=0, p.colour=mat_col_empty, p.lastUpdatedFrame=666; //random number chosen for last updated frame no difference
-      array[i][j] = p;
-    }
-  }
-
-  return &array;
-}
-
-void array_starting_pattern(int* array)
-{
   printf("foo\n");
 }
