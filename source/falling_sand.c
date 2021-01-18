@@ -3,10 +3,11 @@
 #include <linux/types.h> //types
 
 //function prototypes
-int initialise_window(); //initialises the game screen, returns 0 if successful
+int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
 int exit_game(long window_addr, int* array); //exits the game, returns 0 if successful
 
-int * createArray(int array_x, int array_y); //creates array of given size of particles, returns array pointer
+int * create_array(int array_x, int array_y); //creates array of given size of particles, returns array pointer
+void array_starting_pattern(int* array); //starting setup of array
 
 //structs & enums
 typedef enum {false, true} bool;
@@ -45,12 +46,14 @@ const int array_size_y = SCREEN_HEIGHT - 2 * display_boarder;
 int main(int argc, char* args[])
 {
   SDL_Window *window;                    // Declare a pointer
-  window = (void*) (long) initialise_window();
+  initialise_window((long) &window); //pointer is dealt with in function
   SDL_Event event;
 
   //initial creation of assets needed
   //create the array of particles
-  int* particle_array = createArray(array_size_x, array_size_y); //pointer to the array in memory
+  int* particle_array = create_array(array_size_x, array_size_y); //pointer to the array in memory
+
+  array_starting_pattern(particle_array);
 
   bool playing = true; //creates the playing variable
 
@@ -78,10 +81,11 @@ int main(int argc, char* args[])
   return 0;
 }
 
-int initialise_window() //initialises the game screen, returns 0 if successful
+int initialise_window(long window_addr) //initialises the game screen, returns 0 if successful
 {
   SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
   SDL_Window *window;
+  window = (void*) (long) window_addr;
 
   // Create an application window with the following settings:
   window = SDL_CreateWindow(
@@ -99,7 +103,7 @@ int initialise_window() //initialises the game screen, returns 0 if successful
     printf("Could not create window: %s\n", SDL_GetError());
     return 1;
   }
-  return NULL;
+  return 0;
 }
 
 int exit_game(long window_addr, int* array) //exits the game, returns 0 if successful
@@ -117,7 +121,7 @@ int exit_game(long window_addr, int* array) //exits the game, returns 0 if succe
   return 0;
 }
 
-int * createArray(int array_x, int array_y)
+int * create_array(int array_x, int array_y)
 {
   particle_t (*array)[array_x] = (int (*)[array_y])malloc(array_x * array_y*sizeof(particle_t)); //creates array
 
@@ -128,5 +132,10 @@ int * createArray(int array_x, int array_y)
     }
   }
 
-  return array;
+  return &array;
+}
+
+void array_starting_pattern(int* array)
+{
+  printf("foo\n");
 }
