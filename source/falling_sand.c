@@ -29,9 +29,11 @@ typedef struct particle_t{
 
 // material id, for particle info
 #define mat_id_empty (__u8)0
+#define mat_id_sand (__u8)1
 
 // colours
 #define mat_col_empty (colour_t){ 0, 0, 0, 0}
+#define mat_col_sand (colour_t){ 255, 200, 0, 255}
 
 //screen settings, can be changed later
 const int SCREEN_WIDTH = 128;
