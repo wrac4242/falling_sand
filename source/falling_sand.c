@@ -125,7 +125,7 @@ int exit_game(long window_addr, int* array) //exits the game, returns 0 if succe
 
 int * create_array(int array_x, int array_y)
 {
-  particle_t (*array)[array_x] = (int (*)[array_y])malloc(array_x * array_y*sizeof(particle_t)); //creates array
+  particle_t (*array)[array_x] = (int (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
 
   for (int i = 0; i < array_x; i++) {
     for (int j = 0; j < array_y; j++) {
