@@ -12,12 +12,12 @@ game stuff:
 - [x] make struct of a particle  
 - [x] create sand particle
 - [x] create array starting layout function
-- [ ] get starting layout to do something 
+- [ ] get starting layout to do something
 
 - [x] add game quitting
 
 - [x] make the array of particles,
-- [ ] get material id, and use that to render
+- [ ] get colour id, and use that to render
 
 - [ ] implement physics for sand  
 - [ ] add more particle types  

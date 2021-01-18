@@ -4,7 +4,7 @@
 
 //function prototypes
 int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
-int exit_game(long window_addr, long array_addr); //exits the game, returns 0 if successful
+int exit_game(long window_addr); //exits the game, returns 0 if successful
 
 void array_starting_pattern(long array_addr); //starting setup of array
 
@@ -52,7 +52,7 @@ int main(int argc, char* args[])
 
   //initial creation of assets needed
   //create the array of particles
-  struct particle_t (*particle_array)[array_x] = (int (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
+  struct particle_t (*particle_array)[array_x] = (struct particle_t (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
 
   for (int i = 0; i < array_x; i++) {
     for (int j = 0; j < array_y; j++) {
@@ -80,11 +80,12 @@ int main(int argc, char* args[])
   }
   while (playing==1);
 
-  int error_code_exit = exit_game((long) &window, (long) &particle_array);
+  int error_code_exit = exit_game((long) &window);
   if (error_code_exit!=0){
     printf("Error in game exit\n");
     return 1;
   }
+  free(particle_array);
 
   return 0;
 }
@@ -114,20 +115,15 @@ int initialise_window(long window_addr) //initialises the game screen, returns 0
   return 0;
 }
 
-int exit_game(long window_addr, long array_addr) //exits the game, returns 0 if successful
+int exit_game(long window_addr) //exits the game, returns 0 if successful
 {
   SDL_Window *window;
   window = (void*) (long) window_addr;
-
-  int* array;
-  array = (void*) (long) array_addr;
 
   // Close and destroy the window
   SDL_DestroyWindow(window);
 
   SDL_Quit();
-
-  free(array);
 
   return 0;
 }
