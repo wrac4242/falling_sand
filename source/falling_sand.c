@@ -3,8 +3,7 @@
 #include <linux/types.h> //types
 
 //function prototypes
-int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
-int exit_game(long window_addr, long surface_addr); //exits the game, returns 0 if successful
+int exit_game(long window_addr); //exits the game, returns 0 if successful
 
 //structs & enums
 typedef enum {false, true} bool;
@@ -43,8 +42,25 @@ const int array_y = SCREEN_HEIGHT;
 
 int main(int argc, char* args[])
 {
-  SDL_Window *window;                    // Declare a pointer
-  initialise_window((long) &window); //pointer is dealt with in function
+  SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
+  SDL_Window *window;
+
+  // Create an application window with the following settings:
+  window = SDL_CreateWindow(
+    "falling_sand",                    // window title
+    SDL_WINDOWPOS_UNDEFINED,           // initial x position
+    SDL_WINDOWPOS_UNDEFINED,           // initial y position
+    SCREEN_WIDTH,                      // width, in pixels
+    SCREEN_HEIGHT,                     // height, in pixels
+    SDL_WINDOW_OPENGL                  // flags - see below
+  );
+
+  // Check that the window was successfully created
+  if (window == NULL) {
+    // In the case that the window could not be made...
+    printf("Could not create window: %s\n", SDL_GetError());
+    return 1;
+  }
   SDL_Event event;
 
   SDL_Surface *surface = NULL;
@@ -85,7 +101,6 @@ int main(int argc, char* args[])
           *target_pixel = colour;
         }
       }
-      printf("foo\n");
       SDL_UnlockSurface(surface);
     }
     //check for human input
@@ -100,7 +115,7 @@ int main(int argc, char* args[])
   }
   while (playing==1);
 
-  int error_code_exit = exit_game((long) &window, (long) &surface);
+  int error_code_exit = exit_game((long) &window);
   if (error_code_exit!=0){
     printf("Error in game exit\n");
     return 1;
@@ -110,42 +125,14 @@ int main(int argc, char* args[])
   return 0;
 }
 
-int initialise_window(long window_addr) //initialises the game screen, returns 0 if successful
-{
-  SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
-  SDL_Window *window;
-  window = (void*) (long) window_addr;
 
-  // Create an application window with the following settings:
-  window = SDL_CreateWindow(
-    "falling_sand",                    // window title
-    SDL_WINDOWPOS_UNDEFINED,           // initial x position
-    SDL_WINDOWPOS_UNDEFINED,           // initial y position
-    SCREEN_WIDTH,                      // width, in pixels
-    SCREEN_HEIGHT,                     // height, in pixels
-    SDL_WINDOW_OPENGL                  // flags - see below
-  );
-
-  // Check that the window was successfully created
-  if (window == NULL) {
-    // In the case that the window could not be made...
-    printf("Could not create window: %s\n", SDL_GetError());
-    return 1;
-  }
-  return 0;
-}
-
-int exit_game(long window_addr, long surface_addr) //exits the game, returns 0 if successful
+int exit_game(long window_addr) //exits the game, returns 0 if successful
 {
   SDL_Window *window;
   window = (void*) (long) window_addr;
-
-  SDL_Surface *surface;
-  surface = (void*) (long) surface_addr;
 
   // Close and destroy the window
   SDL_DestroyWindow(window);
-  SDL_free(surface);
 
   SDL_Quit();
 
