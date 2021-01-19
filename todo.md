@@ -6,7 +6,7 @@ game stuff:
 - [x] basic screen rendering  
 - [x] window_width and window_height for screen size  
 
-- [ ] then make it display an array, with a boarder of a set width  
+- [x] then make it display an array
 
 - [x] make struct of colour  
 - [x] make struct of a particle  
@@ -17,7 +17,7 @@ game stuff:
 - [x] add game quitting
 
 - [x] make the array of particles,
-- [ ] get colour id, and use that to render
+- [x] get colour id, and use that to render
 
 - [ ] implement physics for sand  
 - [ ] add more particle types  

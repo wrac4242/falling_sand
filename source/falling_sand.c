@@ -8,18 +8,10 @@ int exit_game(long window_addr); //exits the game, returns 0 if successful
 //structs & enums
 typedef enum {false, true} bool;
 
-//colour struct, 32 bits, standard pixel data
-typedef struct colour_t{
-  __u8 r;
-  __u8 g;
-  __u8 b;
-  __u8 a;
-}colour_t;
-
 typedef struct particle_t{
   __u32 id; //4 bytes, material id
   __u32 life_time; //4 bytes, only used for limited life particles
-  colour_t colour; //4 bytes
+  __u32 colour; //4 bytes
   __u32 lastUpdatedFrame; //4 bytes
 } particle_t; //16 bytes
 
@@ -27,9 +19,9 @@ typedef struct particle_t{
 #define mat_id_empty (__u8)0
 #define mat_id_sand (__u8)1
 
-// colours
-#define mat_col_empty (colour_t){ 0, 0, 0, 0}
-#define mat_col_sand (colour_t){ 255, 200, 0, 255}
+// colours, alpha red green blue
+#define mat_col_empty (__u32)0x00000000
+#define mat_col_sand (__u32)0xffffc800
 
 //screen settings, can be changed later
 const int SCREEN_WIDTH = 128;
@@ -96,10 +88,9 @@ int main(int argc, char* args[])
       SDL_LockSurface(surface);
       for (int i = 0; i < array_x; i++) {
         for (int j = 0; j < array_y; j++) {
-          __u32 colour = particle_array[i][j].colour.r << 24 | particle_array[i][j].colour.g << 16 | particle_array[i][j].colour.b << 8 | particle_array[i][j].colour.a;
           //__u32 colour = 0xffffff;//testing colour
           Uint8 *target_pixel = (Uint8 *) surface->pixels + j * surface->pitch + i *4;
-          *(Uint32 *)target_pixel = colour;
+          *(Uint32 *)target_pixel = particle_array[i][j].colour;
         }
       }
       SDL_UnlockSurface(surface);
