@@ -4,7 +4,7 @@
 
 //function prototypes
 int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
-int exit_game(long window_addr); //exits the game, returns 0 if successful
+int exit_game(long window_addr, long surface_addr); //exits the game, returns 0 if successful
 
 
 //structs & enums
@@ -49,6 +49,9 @@ int main(int argc, char* args[])
   initialise_window((long) &window); //pointer is dealt with in function
   SDL_Event event;
 
+  SDL_Surface *surface;
+  surface = SDL_GetWindowSurface(window);
+
   //initial creation of assets needed
   //create the array of particles
   struct particle_t (*particle_array)[array_x] = (struct particle_t (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
@@ -82,7 +85,7 @@ int main(int argc, char* args[])
   }
   while (playing==1);
 
-  int error_code_exit = exit_game((long) &window);
+  int error_code_exit = exit_game((long) &window, (long) &surface);
   if (error_code_exit!=0){
     printf("Error in game exit\n");
     return 1;
@@ -117,13 +120,17 @@ int initialise_window(long window_addr) //initialises the game screen, returns 0
   return 0;
 }
 
-int exit_game(long window_addr) //exits the game, returns 0 if successful
+int exit_game(long window_addr, long surface_addr) //exits the game, returns 0 if successful
 {
   SDL_Window *window;
   window = (void*) (long) window_addr;
 
+  SDL_Surface *surface;
+  surface = (void*) (long) surface_addr;
+
   // Close and destroy the window
   SDL_DestroyWindow(window);
+  SDL_free(surface);
 
   SDL_Quit();
 
