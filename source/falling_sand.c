@@ -6,7 +6,6 @@
 int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
 int exit_game(long window_addr); //exits the game, returns 0 if successful
 
-void array_starting_pattern(long array_addr); //starting setup of array
 
 //structs & enums
 typedef enum {false, true} bool;
@@ -61,7 +60,10 @@ int main(int argc, char* args[])
     }
   }
 
-  array_starting_pattern((long)&particle_array);
+  //array starting pattern
+  particle_array[10][10].id = mat_id_sand;
+  particle_array[10][10].colour = mat_col_sand;
+
 
   bool playing = true; //creates the playing variable
 
@@ -126,12 +128,4 @@ int exit_game(long window_addr) //exits the game, returns 0 if successful
   SDL_Quit();
 
   return 0;
-}
-
-void array_starting_pattern(long array_addr)
-{
-  int* array;
-  array = (void*) (long) array_addr;
-
-  printf("foo\n");
 }

@@ -12,7 +12,7 @@ game stuff:
 - [x] make struct of a particle  
 - [x] create sand particle
 - [x] create array starting layout function
-- [ ] get starting layout to do something
+- [x] get starting layout to do something
 
 - [x] add game quitting
 
