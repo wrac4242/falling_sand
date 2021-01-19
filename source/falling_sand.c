@@ -37,10 +37,9 @@ typedef struct particle_t{
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 128;
 __u32 frameNumber = 0; //frame number
-const int display_boarder = 10;// pixels around perimiter left blank
 
-const int array_x = SCREEN_WIDTH - 2 * display_boarder;
-const int array_y = SCREEN_HEIGHT - 2 * display_boarder;
+const int array_x = SCREEN_WIDTH;
+const int array_y = SCREEN_HEIGHT;
 
 
 int main(int argc, char* args[])
