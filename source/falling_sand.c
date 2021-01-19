@@ -6,7 +6,6 @@
 int initialise_window(long window_addr); //initialises the game screen, returns 0 if successful
 int exit_game(long window_addr, long surface_addr); //exits the game, returns 0 if successful
 
-
 //structs & enums
 typedef enum {false, true} bool;
 
@@ -44,12 +43,15 @@ const int array_y = SCREEN_HEIGHT;
 
 int main(int argc, char* args[])
 {
+  printf("foo\n");
   SDL_Window *window;                    // Declare a pointer
   initialise_window((long) &window); //pointer is dealt with in function
   SDL_Event event;
 
   SDL_Surface *surface;
   surface = SDL_GetWindowSurface(window);
+
+  printf("foo\n");
 
   //initial creation of assets needed
   //create the array of particles
@@ -66,6 +68,7 @@ int main(int argc, char* args[])
   particle_array[10][10].id = mat_id_sand;
   particle_array[10][10].colour = mat_col_sand;
 
+  printf("foo\n");
 
   bool playing = true; //creates the playing variable
 
@@ -73,9 +76,27 @@ int main(int argc, char* args[])
     //main game steps:
     frameNumber += 1; //increase frameNumber
     //update physics
+    printf("foo\n");
     //update render
+    {
+      printf("foo\n");
+      SDL_LockSurface(surface);
+      for (int i = 0; i < array_x; i++) {
+        for (int j = 0; j < array_y; j++) {
+          printf("foo\n");
+          __u32 colour = particle_array[i][j].colour.r << 24 | particle_array[i][j].colour.g << 16 | particle_array[i][j].colour.b << 8 | particle_array[i][j].colour.a;
+          printf("foo\n");
+          Uint32 *target_pixel = (Uint32 *) surface->pixels + i * surface->pitch + j * sizeof(*target_pixel);
+          *target_pixel = colour;
+        }
+      }
+      printf("foo\n");
+      SDL_UnlockSurface(surface);
+    }
     //check for human input
+
     //wait rest of frame
+
     SDL_PollEvent(&event);
     if(event.type == SDL_QUIT){
       playing = false;
