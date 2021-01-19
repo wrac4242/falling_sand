@@ -97,11 +97,13 @@ int main(int argc, char* args[])
       for (int i = 0; i < array_x; i++) {
         for (int j = 0; j < array_y; j++) {
           __u32 colour = particle_array[i][j].colour.r << 24 | particle_array[i][j].colour.g << 16 | particle_array[i][j].colour.b << 8 | particle_array[i][j].colour.a;
-          Uint32 *target_pixel = (Uint32 *) surface->pixels + i * surface->pitch + j * 32;
-          *target_pixel = colour;
+          //__u32 colour = 0xffffff;//testing colour
+          Uint8 *target_pixel = (Uint8 *) surface->pixels + j * surface->pitch + i *4;
+          *(Uint32 *)target_pixel = colour;
         }
       }
       SDL_UnlockSurface(surface);
+      SDL_UpdateWindowSurface(window);
     }
     //check for human input
 
