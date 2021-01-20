@@ -2,9 +2,6 @@
 #include <SDL.h> //sdl2 library
 #include <linux/types.h> //types
 
-//function prototypes
-int exit_game(long window_addr); //exits the game, returns 0 if successful
-
 //structs & enums
 typedef enum {false, true} bool;
 
@@ -14,6 +11,14 @@ typedef struct particle_t{
   __u32 colour; //4 bytes
   __u32 lastUpdatedFrame; //4 bytes
 } particle_t; //16 bytes
+
+//function prototypes
+int exit_game(long window_addr); //exits the game, returns 0 if successful
+
+void write_to_particle_array(int x, int y, particle_t p); //write to the board
+//particle update functions
+void update_empty(int x,int y);
+void update_sand(int x,int y);
 
 // material id, for particle info
 #define mat_id_empty (__u8)0
@@ -31,9 +36,11 @@ __u32 frameNumber = 0; //frame number
 const int array_x = SCREEN_WIDTH;
 const int array_y = SCREEN_HEIGHT;
 
+struct particle_t *array_ptr = NULL;
 
 int main(int argc, char* args[])
 {
+  printf("foo\n");
   SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
   SDL_Window *window;
 
@@ -65,17 +72,19 @@ int main(int argc, char* args[])
   //initial creation of assets needed
   //create the array of particles
   struct particle_t (*particle_array)[array_x] = (struct particle_t (*)[array_y])malloc((unsigned long)array_x * (unsigned long)array_y*(unsigned long)sizeof(particle_t)); //creates array
-
+  array_ptr = &particle_array;
   for (int i = 0; i < array_x; i++) {
     for (int j = 0; j < array_y; j++) {
       struct particle_t p; p.id=mat_id_empty, p.life_time=0, p.colour=mat_col_empty, p.lastUpdatedFrame=666; //random number chosen for last updated frame no difference
       particle_array[i][j] = p;
     }
   }
+  printf("foo\n");
 
   //array starting pattern
-  particle_array[10][10].id = mat_id_sand;
-  particle_array[10][10].colour = mat_col_sand;
+  struct particle_t p; p.id=mat_id_sand, p.life_time=0, p.colour=mat_col_sand, p.lastUpdatedFrame=666;
+  printf("foo\n");
+  write_to_particle_array(10,10,p);
 
   bool playing = true; //creates the playing variable
 
@@ -83,6 +92,12 @@ int main(int argc, char* args[])
     //main game steps:
     frameNumber += 1; //increase frameNumber
     //update physics
+    for (int i = 0; i < array_x; i++) {
+      for (int j = 0; j < array_y; j++) {
+
+      }
+    }
+
     //update render
     {
       SDL_LockSurface(surface);
@@ -130,4 +145,20 @@ int exit_game(long window_addr) //exits the game, returns 0 if successful
   SDL_Quit();
 
   return 0;
+}
+
+
+void write_to_particle_array(int x, int y, struct particle_t p) //write to the board
+{
+  struct particle_t *target_point = (struct particle_t *) array_ptr + x * sizeof(particle_t)+y*sizeof(particle_t);
+  *target_point = p;
+}
+//particle update functions
+void update_empty(int x,int y)
+{
+
+}
+void update_sand(int x,int y)
+{
+
 }
