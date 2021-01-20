@@ -92,8 +92,8 @@ int main(int argc, char* args[])
     frameNumber += 1; //increase frameNumber
     //update physics
     for (int i = 0; i < array_x; i++) {
-      for (int j = 0; j < array_y; j++) {
-
+      for (int j = array_y; j > array_y; j--) {    //runs bottom up
+        
       }
     }
 
