@@ -15,7 +15,6 @@ typedef struct particle_t{
 //function prototypes
 int exit_game(long window_addr); //exits the game, returns 0 if successful
 
-void write_to_particle_array(int x, int y, particle_t p); //write to the board
 //particle update functions
 void update_empty(int x,int y);
 void update_sand(int x,int y);
@@ -84,7 +83,7 @@ int main(int argc, char* args[])
   //array starting pattern
   struct particle_t p; p.id=mat_id_sand, p.life_time=0, p.colour=mat_col_sand, p.lastUpdatedFrame=666;
   printf("foo\n");
-  write_to_particle_array(10,10,p);
+  particle_array[11][11] = p;
 
   bool playing = true; //creates the playing variable
 
@@ -147,12 +146,6 @@ int exit_game(long window_addr) //exits the game, returns 0 if successful
   return 0;
 }
 
-
-void write_to_particle_array(int x, int y, struct particle_t p) //write to the board
-{
-  struct particle_t *target_point = (struct particle_t *) array_ptr + x * sizeof(particle_t)+y*sizeof(particle_t);
-  *target_point = p;
-}
 //particle update functions
 void update_empty(int x,int y)
 {
